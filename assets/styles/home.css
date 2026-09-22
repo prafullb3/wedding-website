@@ -1,0 +1,215 @@
+/* =====================================================================
+   PRAFULL & TRISHNA — HOME / LANDING STYLESHEET
+   Shares the "Marigold & Rosewood" palette with invitation.css
+   ===================================================================== */
+
+:root{
+  --paper:#fdf6f2;
+  --paper-2:#f8e7e3;
+  --card:rgba(255,252,250,.62);
+  --card-solid:#fffcfa;
+  --ink:#3a2030;
+  --ink-2:#6d4f5e;
+  --ink-3:#9a7d89;
+  --wine:#a12e55;
+  --wine-deep:#6d1637;
+  --plum:#40122b;
+  --gold:#c4913d;
+  --rose:#f3adbd;
+  --peach:#ffd3b6;
+  --lilac:#dfd2ff;
+  --line:rgba(161,46,85,.16);
+  --line-gold:rgba(196,145,61,.34);
+  --shade-1:0 10px 30px -18px rgba(64,18,43,.45);
+  --shade-2:0 26px 60px -34px rgba(64,18,43,.55);
+
+  --f-display:"Playfair Display",Georgia,serif;
+  --f-body:"EB Garamond",Georgia,serif;
+  --f-ui:"Jost","Helvetica Neue",Arial,sans-serif;
+
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#170d14;--paper-2:#1f1119;
+    --card:rgba(41,22,34,.6);--card-solid:#241421;
+    --ink:#f6e8ee;--ink-2:#c9aab9;--ink-3:#9c7f8d;
+    --wine:#f08daa;--wine-deep:#ffb3c6;--plum:#ffd3e0;--gold:#e2b86a;
+    --rose:#7d3a53;--peach:#7a4a38;--lilac:#4a3f72;
+    --line:rgba(240,141,170,.2);--line-gold:rgba(226,184,106,.3);
+    --shade-1:0 10px 30px -18px #000;--shade-2:0 26px 60px -34px #000;
+  }
+}
+
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+
+body{
+  margin:0;min-height:100svh;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--f-body);
+  font-size:clamp(1.02rem,.5vw + .94rem,1.12rem);
+  line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+
+/* drifting aurora */
+.aurora{position:fixed;inset:0;z-index:-2;overflow:hidden;pointer-events:none;}
+.aurora i{
+  position:absolute;border-radius:50%;filter:blur(90px);opacity:.5;
+  animation:float 24s ease-in-out infinite alternate;
+}
+.aurora i:nth-child(1){width:48vw;height:48vw;left:-14vw;top:-12vw;background:var(--rose);}
+.aurora i:nth-child(2){width:42vw;height:42vw;right:-12vw;top:8vh;background:var(--lilac);animation-delay:-7s;}
+.aurora i:nth-child(3){width:46vw;height:46vw;left:22vw;bottom:-18vw;background:var(--peach);animation-delay:-13s;}
+@keyframes float{
+  0%{transform:translate3d(0,0,0) scale(1);}
+  50%{transform:translate3d(4vw,-3vh,0) scale(1.14);}
+  100%{transform:translate3d(-3vw,4vh,0) scale(1.04);}
+}
+
+a{color:var(--wine);}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px;}
+
+.page{
+  position:relative;
+  width:min(1100px,92vw);
+  margin:clamp(20px,4vw,40px) auto clamp(48px,7vw,80px);
+  border:1px solid var(--line-gold);
+  border-radius:24px;
+  background:var(--card);
+  backdrop-filter:blur(14px);
+  box-shadow:var(--shade-2);
+  overflow:hidden;
+}
+.page::before{
+  content:"";position:absolute;inset:8px;pointer-events:none;
+  border:1px solid var(--line);border-radius:18px;
+}
+
+/* ── HERO ─────────────────────────────────────────────────────────── */
+.hero{
+  position:relative;overflow:hidden;text-align:center;
+  padding:clamp(52px,8vw,88px) 24px clamp(30px,4vw,44px);
+}
+.eyebrow{
+  display:inline-block;margin:0 0 18px;
+  font-family:var(--f-ui);font-size:.7rem;letter-spacing:.28em;
+  text-transform:uppercase;color:var(--wine);
+}
+h1{
+  margin:0;font-family:var(--f-display);font-weight:500;
+  font-size:clamp(2.5rem,7vw,5rem);line-height:1.02;letter-spacing:.01em;
+  background:linear-gradient(100deg,var(--plum) 18%,var(--gold) 38%,var(--wine) 52%,var(--plum) 78%);
+  background-size:280% 100%;
+  -webkit-background-clip:text;background-clip:text;
+  color:transparent;-webkit-text-fill-color:transparent;
+  animation:shimmer 9s ease-in-out infinite;
+}
+@keyframes shimmer{0%,100%{background-position:0% 50%;}50%{background-position:100% 50%;}}
+.and{
+  font-style:italic;color:var(--gold);-webkit-text-fill-color:var(--gold);
+  display:inline-block;padding:0 .28em;
+}
+.date-line{
+  margin:20px auto 8px;font-family:var(--f-ui);
+  font-size:clamp(.8rem,1.5vw,.95rem);letter-spacing:.24em;
+  text-transform:uppercase;color:var(--ink);
+}
+.location{
+  margin:0;font-family:var(--f-ui);font-size:.72rem;
+  letter-spacing:.24em;text-transform:uppercase;color:var(--ink-3);
+}
+.divider{
+  width:120px;height:1px;margin:28px auto 14px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+}
+.flourish{margin:0;color:var(--gold);font-size:1.7rem;line-height:1;animation:spin 30s linear infinite;display:inline-block;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* ── CONTENT ──────────────────────────────────────────────────────── */
+.content{padding:clamp(14px,3vw,24px) clamp(20px,4vw,34px) clamp(40px,6vw,58px);}
+.intro{
+  max-width:680px;margin:0 auto 26px;text-align:center;
+  font-size:1.14rem;color:var(--ink-2);
+}
+
+.grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(262px,1fr));
+  gap:22px;margin-top:30px;
+}
+.card{
+  position:relative;isolation:isolate;display:block;
+  padding:30px 24px 26px;border-radius:18px;text-decoration:none;color:var(--ink);
+  background:var(--card-solid);border:1px solid var(--line);
+  box-shadow:var(--shade-1);
+  transition:transform .45s cubic-bezier(.2,.8,.2,1),box-shadow .45s,border-color .45s;
+}
+.card::after{
+  content:"";position:absolute;left:0;right:0;bottom:0;height:3px;
+  background:linear-gradient(90deg,var(--wine),var(--gold));
+  transform:scaleX(0);transform-origin:0 50%;
+  transition:transform .5s cubic-bezier(.2,.8,.2,1);
+}
+.card:hover{transform:translateY(-8px);border-color:var(--line-gold);box-shadow:var(--shade-2);}
+.card:hover::after{transform:scaleX(1);}
+.card-tag{
+  display:inline-block;margin-bottom:12px;
+  font-family:var(--f-ui);font-size:.66rem;font-weight:600;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--wine);
+}
+.card h2{
+  margin:0 0 12px;font-family:var(--f-display);font-style:italic;font-weight:500;
+  font-size:clamp(1.5rem,2.4vw,2.05rem);color:var(--wine-deep);line-height:1.15;
+}
+.card p{margin:0 0 18px;color:var(--ink-2);}
+.card .cta{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--f-ui);font-size:.72rem;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--wine);
+}
+.card .cta::after{
+  content:"→";transition:transform .4s cubic-bezier(.2,.8,.2,1);
+}
+.card:hover .cta::after{transform:translateX(6px);}
+
+.overview{
+  margin-top:34px;display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:18px;
+}
+.stat{
+  padding:22px 16px;text-align:center;border-radius:16px;
+  background:var(--card-solid);border:1px solid var(--line-gold);
+  transition:transform .4s cubic-bezier(.2,.8,.2,1);
+}
+.stat:hover{transform:translateY(-5px);}
+.stat strong{
+  display:block;margin-bottom:6px;color:var(--wine-deep);
+  font-family:var(--f-display);font-size:1.75rem;line-height:1;
+}
+.stat span{
+  font-family:var(--f-ui);font-size:.66rem;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3);
+}
+
+/* ── ENTRANCE ─────────────────────────────────────────────────────── */
+.rise{opacity:0;transform:translateY(22px);animation:rise .9s cubic-bezier(.2,.8,.2,1) forwards;}
+.rise:nth-child(1){animation-delay:.05s}.rise:nth-child(2){animation-delay:.15s}
+.rise:nth-child(3){animation-delay:.25s}.rise:nth-child(4){animation-delay:.35s}
+@keyframes rise{to{opacity:1;transform:none;}}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto;}
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;}
+  .rise{opacity:1;transform:none;}
+}
+
+@media (max-width:600px){
+  .page{width:min(94vw,100%);border-radius:18px;}
+  .date-line{letter-spacing:.14em;}
+}
