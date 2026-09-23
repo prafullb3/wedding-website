@@ -428,7 +428,8 @@ html[lang="hi"] .place-line,html[lang="mr"] .place-line,html[lang="gu"] .place-l
 
 /* hero stagger */
 .hero-item{opacity:0;transform:translateY(24px);}
-body.revealed .hero-item{animation:rise .95s cubic-bezier(.2,.8,.2,1) forwards;}
+body.revealed .hero-item:not(.scroll-cue){animation:rise .95s cubic-bezier(.2,.8,.2,1) forwards;}
+body.revealed .scroll-cue{opacity:1;transform:translateX(-50%);}
 body.revealed .hero-item-1{animation-delay:.1s}
 body.revealed .hero-item-2{animation-delay:.26s}
 body.revealed .hero-item-3{animation-delay:.46s}
