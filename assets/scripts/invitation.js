@@ -516,6 +516,84 @@ function toast(msg){
   toastTimer = setTimeout(()=> el.classList.remove("show"), 2800);
 }
 
+/* ── LIGHTBOX ─────────────────────────────────────────────────────── */
+(function lightbox(){
+  const overlay = document.getElementById("lightbox");
+  const stageImg = document.getElementById("lb-img");
+  const counter = document.getElementById("lb-counter");
+  const btnClose = document.getElementById("lb-close");
+  const btnPrev = document.getElementById("lb-prev");
+  const btnNext = document.getElementById("lb-next");
+  if(!overlay || !stageImg) return;
+
+  // Reads the gallery fresh each time it opens, so any photos added or
+  // reordered in the HTML are picked up automatically — no JS edits needed.
+  const frames = () => Array.from(document.querySelectorAll("#gallery-grid .photo-frame"));
+
+  let index = 0;
+  let lastFocused = null;
+
+  function render(){
+    const list = frames();
+    const img = list[index]?.querySelector("img");
+    if(!img) return;
+    stageImg.src = img.currentSrc || img.src;
+    stageImg.alt = img.alt || "";
+    stageImg.classList.remove("swap");
+    void stageImg.offsetWidth;
+    if(!reduceMotion) stageImg.classList.add("swap");
+    counter.textContent = localizeDigits(index + 1) + " / " + localizeDigits(list.length);
+  }
+
+  function open(i){
+    const list = frames();
+    if(!list.length) return;
+    index = ((i % list.length) + list.length) % list.length;
+    lastFocused = document.activeElement;
+    overlay.classList.add("open");
+    overlay.setAttribute("aria-hidden", "false");
+    document.body.classList.add("locked");
+    render();
+    btnClose?.focus({ preventScroll:true });
+    document.addEventListener("keydown", onKey);
+  }
+
+  function close(){
+    overlay.classList.remove("open");
+    overlay.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("locked");
+    document.removeEventListener("keydown", onKey);
+    if(lastFocused && typeof lastFocused.focus === "function") lastFocused.focus({ preventScroll:true });
+  }
+
+  function step(delta){
+    const list = frames();
+    if(!list.length) return;
+    index = ((index + delta) % list.length + list.length) % list.length;
+    render();
+  }
+
+  function onKey(e){
+    if(e.key === "Escape") close();
+    else if(e.key === "ArrowRight") step(1);
+    else if(e.key === "ArrowLeft") step(-1);
+  }
+
+  frames().forEach((frame, i)=>{
+    frame.addEventListener("click", ()=> open(i));
+  });
+
+  btnClose?.addEventListener("click", close);
+  btnPrev?.addEventListener("click", ()=> step(-1));
+  btnNext?.addEventListener("click", ()=> step(1));
+
+  // Click the dark backdrop (not the image or the buttons) to close.
+  overlay.addEventListener("click", (e)=>{
+    if(e.target === overlay) close();
+  });
+})();
+
+
 /* ── BOOT ─────────────────────────────────────────────────────────── */
 (function boot(){
   let saved = null;

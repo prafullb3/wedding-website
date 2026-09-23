@@ -612,6 +612,10 @@ html[lang="hi"] .btn,html[lang="mr"] .btn,html[lang="gu"] .btn{
   background:linear-gradient(140deg,var(--paper-2),var(--card-solid) 55%,var(--paper-3));
   border:1px solid var(--line-gold);box-shadow:var(--shade-1);
   transition:transform .5s cubic-bezier(.2,.8,.2,1),box-shadow .5s;
+  /* .photo-frame is a <button> so the gallery is keyboard- and
+     screen-reader-accessible; these resets strip default button chrome. */
+  appearance:none;-webkit-appearance:none;padding:0;margin:0;width:100%;
+  font:inherit;text-align:inherit;cursor:pointer;outline-offset:4px;
 }
 .photo-frame:nth-child(3n-1){aspect-ratio:4/4.4;}
 .photo-frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.2,.8,.2,1);}
@@ -626,6 +630,63 @@ html[lang="hi"] .btn,html[lang="mr"] .btn,html[lang="gu"] .btn{
   opacity:0;transform:translateY(8px);transition:opacity .4s,transform .4s;
 }
 .photo-frame:hover span{opacity:1;transform:none;}
+
+/* ── 9b. LIGHTBOX ─────────────────────────────────────────────────── */
+.lightbox{
+  position:fixed;inset:0;z-index:1300;
+  display:flex;align-items:center;justify-content:center;
+  background:color-mix(in srgb,var(--plum) 88%,black 10%);
+  backdrop-filter:blur(6px);
+  opacity:0;visibility:hidden;
+  transition:opacity .35s ease,visibility .35s;
+}
+.lightbox.open{opacity:1;visibility:visible;}
+.lb-stage{
+  position:relative;max-width:min(92vw,1100px);max-height:min(86vh,900px);
+  display:flex;flex-direction:column;align-items:center;gap:14px;
+}
+.lb-stage img{
+  max-width:100%;max-height:78vh;width:auto;height:auto;
+  border-radius:var(--radius-sm);
+  box-shadow:0 40px 90px -30px rgba(0,0,0,.7);
+  background:var(--paper-2);
+  opacity:0;transform:scale(.96);
+  transition:opacity .35s ease,transform .35s cubic-bezier(.2,.8,.2,1);
+}
+.lightbox.open .lb-stage img{opacity:1;transform:none;}
+.lb-stage img.swap{animation:lbSwap .4s ease;}
+@keyframes lbSwap{0%{opacity:.15;transform:scale(.98);}100%{opacity:1;transform:none;}}
+.lb-counter{
+  font-family:var(--f-ui);font-size:.72rem;letter-spacing:.18em;
+  color:var(--gold-lit);opacity:.85;font-variant-numeric:tabular-nums;
+}
+.lb-close,.lb-nav{
+  appearance:none;-webkit-appearance:none;cursor:pointer;
+  border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.06);
+  color:var(--gold-lit);border-radius:50%;
+  display:grid;place-items:center;
+  transition:background .3s,transform .3s,border-color .3s;
+}
+.lb-close:hover,.lb-nav:hover{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.4);}
+.lb-close:active,.lb-nav:active{transform:scale(.92);}
+.lb-close{
+  position:absolute;top:clamp(14px,3vw,28px);right:clamp(14px,3vw,28px);
+  width:44px;height:44px;z-index:2;
+}
+.lb-close svg{width:18px;height:18px;}
+.lb-nav{
+  position:absolute;top:50%;transform:translateY(-50%);
+  width:clamp(42px,6vw,56px);height:clamp(42px,6vw,56px);z-index:2;
+}
+.lb-nav:active{transform:translateY(-50%) scale(.92);}
+.lb-nav svg{width:22px;height:22px;}
+.lb-prev{left:clamp(8px,3vw,26px);}
+.lb-next{right:clamp(8px,3vw,26px);}
+@media (max-width:640px){
+  .lb-prev{left:6px;}
+  .lb-next{right:6px;}
+  .lb-close{top:10px;right:10px;}
+}
 
 /* ── 11. HELP ─────────────────────────────────────────────────────── */
 .help-card{
