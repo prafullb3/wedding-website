@@ -416,7 +416,7 @@ html[lang="hi"] .place-line,html[lang="mr"] .place-line,html[lang="gu"] .place-l
 .scroll-cue{
   position:absolute;left:50%;bottom:clamp(22px,4vh,44px);transform:translateX(-50%);
   z-index:1;display:grid;justify-items:center;gap:10px;
-  font-family:var(--f-ui);font-size:.62rem;letter-spacing:.28em;
+  width:max-content;font-family:var(--f-ui);font-size:.62rem;letter-spacing:.28em;
   text-transform:uppercase;color:var(--ink-3);
 }
 .scroll-cue i{
@@ -429,13 +429,13 @@ html[lang="hi"] .place-line,html[lang="mr"] .place-line,html[lang="gu"] .place-l
 /* hero stagger */
 .hero-item{opacity:0;transform:translateY(24px);}
 body.revealed .hero-item:not(.scroll-cue){animation:rise .95s cubic-bezier(.2,.8,.2,1) forwards;}
-body.revealed .scroll-cue{opacity:1;transform:translateX(-50%);}
+body.revealed .scroll-cue{opacity:1;transform:translateX(-50%);animation:none;}
 body.revealed .hero-item-1{animation-delay:.1s}
 body.revealed .hero-item-2{animation-delay:.26s}
 body.revealed .hero-item-3{animation-delay:.46s}
 body.revealed .hero-item-4{animation-delay:.6s}
 body.revealed .hero-item-5{animation-delay:.72s}
-body.revealed .hero-item-6{animation-delay:.94s}
+body.revealed .hero-item-6:not(.scroll-cue){animation-delay:.94s}
 @keyframes rise{to{opacity:1;transform:none;}}
 
 /* ── 6. STORY + TIMELINE ──────────────────────────────────────────── */
